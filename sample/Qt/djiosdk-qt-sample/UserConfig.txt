@@ -1,2 +1,2 @@
-ID:You can edit file
-KEY:UserConfig.txt too
+ID:1044273
+KEY:2c523367b7428b9c026d2b156a4f81eb09d6e6f841b5e8ae257eb5fcfcdc82dd
