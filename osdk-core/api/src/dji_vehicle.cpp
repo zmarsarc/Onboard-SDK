@@ -358,7 +358,7 @@ Vehicle::initVersion()
   getDroneVersion();
   QTime* t = new QTime();
   t->start();
-  while (t->elapsed() < 250)
+  while (t->elapsed() < 3000)
   {
 	  QCoreApplication::processEvents();
   }
