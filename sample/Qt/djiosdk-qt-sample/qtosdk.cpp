@@ -6,6 +6,7 @@
 #include "ui_qwaypoints.h"
 #include "iostream"
 #include "QMessageBox"
+#include "QTime"
 
 using namespace DJI;
 using namespace DJI::OSDK;
@@ -98,7 +99,14 @@ qtOsdk::on_initVehicle_clicked()
   if (vehicle)
   {
     emit changeInitButton("Vehicle Initialized", true);
-    QThread::msleep(100);
+
+	QTime t;
+	t.start();
+	while (t.elapsed() < 100)
+	{
+		QCoreApplication::processEvents();
+	}
+
     // Initialize all the other parts of the SDK
     initComponents();
   }
