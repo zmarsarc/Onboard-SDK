@@ -3,8 +3,11 @@
 
 #include <QDebug>
 #include <QTableWidget>
+#include <QFile>
 
 #define INLINE_NAME(X) #X
+
+const static char* PATH_PREFIX = "C:\\Users\\my\\Desktop\\GPSAnalyse\\data\\20171121\\1\\";
 
 using namespace DJI::OSDK;
 
@@ -137,6 +140,18 @@ SubscribePanel::display(Telemetry::TopicName topicName, uint32_t id)
                     .arg(ab.x, 0, 'f', 3)
                     .arg(ab.y, 0, 'f', 3)
                     .arg(ab.z, 0, 'f', 3));
+
+	  QString fileName(PATH_PREFIX);
+	  fileName.append("AccelerationBody.txt");
+	  QFile output(fileName);
+	  if (!output.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
+	  {
+		  return;
+	  }
+	  QTextStream out(&output);
+	  out << ab.x << " " << ab.y << " " << ab.z << "\n";
+	  output.close();
+
     }
     break;
     case Telemetry::TOPIC_ACCELERATION_RAW:
@@ -160,6 +175,17 @@ SubscribePanel::display(Telemetry::TopicName topicName, uint32_t id)
                     .arg(v.data.y, 0, 'f', 3)
                     .arg(v.data.z, 0, 'f', 3)
                     .arg(v.info.health));
+
+	  QString fileName(PATH_PREFIX);
+	  fileName.append("Velocity.txt");
+	  QFile output(fileName);
+	  if (!output.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
+	  {
+		  return;
+	  }
+	  QTextStream out(&output);
+	  out << v.data.x << " " << v.data.y << " " << v.data.z << " " << v.info.health << "\n";
+	  output.close();
     }
     break;
     case Telemetry::TOPIC_ANGULAR_RATE_FUSIONED:
@@ -190,6 +216,18 @@ SubscribePanel::display(Telemetry::TopicName topicName, uint32_t id)
         vehicle->subscribe->getValue<Telemetry::TOPIC_ALTITUDE_FUSIONED>();
       ui->tableWidget->item(2 + (int)topicName, 1)
         ->setText(QString("%1").arg(d, 0, 'f', 3));
+
+	  QString fileName(PATH_PREFIX);
+	  fileName.append("AltitudeFusioned.txt");
+	  QFile output(fileName);
+	  if (!output.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
+	  {
+		  return;
+	  }
+	  QTextStream out(&output);
+	  out << d << "\n";
+	  output.close();
+
     }
     break;
     case Telemetry::TOPIC_ALTITUDE_BAROMETER:
@@ -198,6 +236,17 @@ SubscribePanel::display(Telemetry::TopicName topicName, uint32_t id)
         vehicle->subscribe->getValue<Telemetry::TOPIC_ALTITUDE_BAROMETER>();
       ui->tableWidget->item(2 + (int)topicName, 1)
         ->setText(QString("%1").arg(d, 0, 'f', 3));
+
+	  QString fileName(PATH_PREFIX);
+	  fileName.append("AltitudeBarometer.txt");
+	  QFile output(fileName);
+	  if (!output.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
+	  {
+		  return;
+	  }
+	  QTextStream out(&output);
+	  out << d << "\n";
+	  output.close();
     }
     break;
     case Telemetry::TOPIC_HEIGHT_HOMEPOINT:
@@ -226,6 +275,18 @@ SubscribePanel::display(Telemetry::TopicName topicName, uint32_t id)
                     .arg(gpsPos.latitude)
                     .arg(gpsPos.altitude)
                     .arg(gpsPos.visibleSatelliteNumber));
+
+	  QString fileName(PATH_PREFIX);
+	  fileName.append("GPSFused.txt");
+	  QFile output(fileName);
+	  if (!output.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
+	  {
+		  return;
+	  }
+	  QTextStream out(&output);
+	  out << gpsPos.longitude << " " << gpsPos.latitude << " "  << gpsPos.altitude << " " << gpsPos.visibleSatelliteNumber << "\n";
+	  output.close();
+
     }
     break;
     case Telemetry::TOPIC_GPS_DATE:
@@ -251,6 +312,17 @@ SubscribePanel::display(Telemetry::TopicName topicName, uint32_t id)
                     .arg(p.x)
                     .arg(p.y)
                     .arg(p.z));
+
+	  QString fileName(PATH_PREFIX);
+	  fileName.append("GPSPosition.txt");
+	  QFile output(fileName);
+	  if (!output.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
+	  {
+		  return;
+	  }
+	  QTextStream out(&output);
+	  out << p.x << " " << p.y << " " << p.z << "\n";
+	  output.close();
     }
     break;
     //! @todo implement
@@ -263,6 +335,17 @@ SubscribePanel::display(Telemetry::TopicName topicName, uint32_t id)
                         .arg(gpsVel.x)
                         .arg(gpsVel.y)
                         .arg(gpsVel.z));
+
+	  QString fileName(PATH_PREFIX);
+	  fileName.append("GPSVelocity.txt");
+	  QFile output(fileName);
+	  if (!output.open(QIODevice::WriteOnly | QIODevice::Text | QIODevice::Append))
+	  {
+		  return;
+	  }
+	  QTextStream out(&output);
+	  out << gpsVel.x << " " << gpsVel.y << " " << gpsVel.z << "\n";
+	  output.close();
     }
     break;
     case Telemetry::TOPIC_GPS_DETAILS               :
