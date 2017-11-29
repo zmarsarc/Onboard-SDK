@@ -7,6 +7,8 @@
 
 #define INLINE_NAME(X) #X
 
+// 定义日志文件将要存放的目录
+// 该目录在程序运行前必须存在，不存在需要手动创建
 const static char* PATH_PREFIX = "C:\\Users\\my\\Desktop\\GPSAnalyse\\data\\20171121\\1\\";
 
 using namespace DJI::OSDK;
